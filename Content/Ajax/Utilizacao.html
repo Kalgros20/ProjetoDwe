@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Utilizacao</title>
+    <link rel="stylesheet" href="../../Css/bootstrap.min.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Russo+One" rel="stylesheet">
+    <link rel="stylesheet" href="../../Css/ajax.css" type="text/css">
+</head>
+
+<body>
+    <div class="container full">
+        <div class="main">
+            <center>
+                <ul>
+                    <a href="Index.html">
+                        <li>SOBRE</li>
+                    </a>
+                    <a href="Utilizacao.html">
+                        <li>UTILIZAÇÃO</li>
+                    </a>
+                </ul>
+            </center>
+            <p>Para começar a colocar Ajax nas aplicações é bastante simples. Inicialmente precisamos criar uma função Javascript
+                que cria um novo objeto para fazer solicitações ao servidor. Aqui devemos atentar para o fato que diferentes
+                browsers podem fazer de diferentes maneiras. Segue abaixo a criação da função que será incorporada na página
+                HTML de onde partirá a solicitação:</p>
+            <p>
+                <strong>Listagem 1</strong>: Exemplo do objeto de solicitação.</p>
+
+            <pre class="brush:js;toolbar:false;">
+                        &lt;head&gt;
+                          &lt;script language="javascript" type="text/javascript"&gt;
+                           var request = null;
+                        
+                           function createRequest() {
+                             try {
+                               request = new XMLHttpRequest();
+                             } catch (trymicrosoft) {
+                               try {
+                                 request = new ActiveXObject("Msxml2.XMLHTTP");
+                               } catch (othermicrosoft) {
+                                 try {
+                                   request = new ActiveXObject("Microsoft.XMLHTTP");
+                                 } catch (failed) {
+                                   request = null;
+                                 }
+                               }
+                             }
+                        
+                             if (request == null)
+                               alert("Error creating request object!");
+                           }
+                          &lt;/script&gt;
+                        &lt;/head&gt; 
+                        </pre>
+            <p>
+                A função acima é bastante simples, primeiramente ela chama a função “createRequest()” para criar um novo objeto de solicitação.
+                Depois, abaixo no comando “var url = "getInformacaoQualquerDoServidor-ajax.php"” tem-se a configuração da
+                URL que será necessário para se conectar e obter assim os dados necessários. No comando “request.open("GET",
+                url, true);” tem-se a inicialização da conexão e a informação ao objeto de solicitação de como se conectar
+                ao servidor. Em “request.onreadystatechange = atualizaPagina;” tem-se a configuração dos valores na página,
+                a função “atualizaPagina” será vista abaixo. Por fim no comando “request.send(null);” apenas estamos dizendo
+                que nenhum dado está sendo enviado na solicitação. O script nesse caso não precisará de nenhum dado, apenas
+                retornará o resultado esperado. É importante salientar novamente que o script PHP acima “getInformacaoQualquerDoServidor-ajax.php”
+                deve retornar unicamente o dado bruto e não mais um HTML como antigamente. Agora basta chamar a função criada
+                a partir do seu HTML. Isso poderia ser feito, por exemplo, utilizando um botão HTML, como por exemplo:</p>
+            <p>
+                <strong>Listagem 2</strong>: Solicitação ao Servidor.</p>
+
+            <pre class="brush:js;toolbar:false;">
+                &lt;form method="GET"&gt;
+                &lt;input value="Mostre a informação" type="button"
+                onClick="getInformacaoQualquer();" /&gt;
+                &lt;/form&gt;
+            </pre>
+            <p>
+                Um simples manipulador de eventos “onClick” do botão “button” foi utilizado para chamar a função Javascript anteriormente
+                criada para fazer a solicitação ao servidor. Agora a última etapa seria atualizar a página Web com as informações
+                que vieram do servidor. Para isso a função “atualizaPagina” deverá ser configurada para fazer este procedimento.
+                Antes, salienta-se que nesse momento entra uma figura importante no cenário do uso do Ajax, é o navegador.
+                O navegador é o grande responsável por transformar o seu HTML em uma página com figuras, botões, texto, etc.
+                Além disso, é o navegador Web que manipula as solicitações feitas a servidores Web e resolve o que fazer
+                com as respostas que ele receberá desses servidores. Portanto, é o navegador que faz todo o trabalho “sujo”
+                de converter o código para algo que o computador realmente entenda. Assim, ao fazer a conexão com o servidor
+                é o navegador que fará a solicitação e guardará a resposta por debaixo dos panos. Com o comando mostrado
+                anteriormente “request.onreadystatechange = atualizaPagina;” temos a indicação que assim que o navegador
+                receber a resposta do servidor ele chamará a função “atualizaPagina”. Isso acontece porque, lembre-se o que
+                foi explicado anteriormente, a comunicação com o servidor em aplicativos Ajax é assíncrona, portanto não
+                se sabe quando a resposta chegará. Cabe ao navegador se responsabilizar por isso, pois é ele quem sabe quando
+                a resposta efetivamente chegará do servidor. Agora o que o desenvolvedor tem a fazer é manipular essa resposta
+                que veio do servidor. Para fazer isso, o código abaixo dá uma breve ilustração: Read more: http://www.linhadecodigo.com.br/artigo/3585/ajax-basico-introducao.aspx#ixzz5JUXXMVmL
+            </p>
+
+            <p>
+                <strong>Listagem 3</strong>: Manipulando a resposta vindo do servidor.</p>
+
+            <pre class="brush:js;toolbar:false;">
+            function atualizaPagina() {
+                if (request.readyState == 4) {
+                var respostaDoServidor = request.responseText;
+                }
+            }
+</pre>
+        </div>
+
+    </div>
+</body>
+
+</html>
