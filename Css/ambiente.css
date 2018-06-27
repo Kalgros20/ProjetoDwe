@@ -1,34 +1,29 @@
 body,html{
-    font-family: 'Russo One', sans-serif;
-    background-color: #e6e600;
-    height: 100%;
+    font-family: 'Acme', sans-serif;
+    background-color:lightblue;
+    min-height: 100%;
     position: relative;
 }
-.full{
-    min-height: 100%;
-}
+
 .main{
     background: white;
     box-sizing: border-box;
     padding: 60px;
-    height: 100%;
+    padding-bottom: 40px;
 }
-.container{
-    box-sizing: border-box;
-}
+
 p{
     padding: 10px;
     text-indent: 20px;
 }
+
+.full{
+    min-height: 100%;
+}
+
 ul,li{
     display: inline-block;
 }
 li{
   width: 400px;
 }
-
-
-
-
-
-
